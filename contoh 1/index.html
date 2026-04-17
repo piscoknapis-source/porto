@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Velene - Premium UGC Portfolio</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            teal: {
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+              900: '#134e4a',
+            },
+            yellow: {
+              300: '#fde047',
+              400: '#facc15',
+            }
+          },
+          boxShadow: {
+            'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
+            'glow': '0 0 20px rgba(45, 212, 191, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ================= GLOBAL ================= */
+    body {
+      overflow-x: hidden;
+      background-color: #fafafa;
+    }
+
+    /* ================= ANIMATION ================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 {
+      transition-delay: 0.1s;
+    }
+
+    .reveal-delay-2 {
+      transition-delay: 0.2s;
+    }
+
+    .reveal-delay-3 {
+      transition-delay: 0.3s;
+    }
+
+    /* ================= CARD ================= */
+    .premium-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .premium-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ================= IMAGE ================= */
+    .img-zoom {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .img-zoom img {
+      transition: transform 0.6s ease;
+    }
+
+    .img-zoom:hover img {
+      transform: scale(1.05);
+    }
+
+    /* ================= SCROLLBAR ================= */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #14b8a6;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #0d9488;
+    }
+
+    /* Mobile fixes */
+    .mobile-nav-open {
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body class="text-gray-800 antialiased selection:bg-teal-300 selection:text-teal-900">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
+    <div class="absolute inset-0 bg-white/70 backdrop-blur-md border-b border-gray-100 shadow-sm"></div>
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 md:px-12 py-0 relative z-10">
+      <a href="#home" class="font-bold text-2xl tracking-tighter text-teal-600 flex items-center gap-2">
+        <span class="w-8 h-8 rounded-full bg-yellow-400 inline-block"></span>
+        Aurora.
+      </a>
+
+      <nav class="hidden md:flex gap-8 lg:gap-12 text-sm font-medium text-gray-600">
+        <a href="#home" class="hover:text-teal-600 transition-colors">Home</a>
+        <a href="#about" class="hover:text-teal-600 transition-colors">About</a>
+        <a href="#expertise" class="hover:text-teal-600 transition-colors">Expertise</a>
+        <a href="#portfolio" class="hover:text-teal-600 transition-colors">Portfolio</a>
+        <a href="#contact"
+          class="px-5 py-2.5 rounded-full bg-gray-900 text-white hover:bg-teal-600 hover:shadow-glow transition-all">Let's
+          Talk</a>
+      </nav>
+
+      <button id="menuBtn"
+        class="md:hidden text-gray-900 focus:outline-none w-10 h-10 flex flex-col justify-center items-center gap-1.5 relative z-50">
+        <span class="w-6 h-0.5 bg-current transition-all duration-300 transform" id="line1"></span>
+        <span class="w-6 h-0.5 bg-current transition-all duration-300" id="line2"></span>
+        <span class="w-6 h-0.5 bg-current transition-all duration-300 transform" id="line3"></span>
+      </button>
+    </div>
+
+    <div id="mobileMenu"
+      class="fixed top-[100px] left-[10%] right-[10%] h-[50vh] bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-gray-100 z-40 transform opacity-0 pointer-events-none translate-y-[-20px] transition-all duration-300 ease-in-out md:hidden flex flex-col justify-center items-center text-xl font-semibold gap-6">
+      <a href="#home" class="mobile-link text-gray-800 hover:text-teal-600">Home</a>
+      <a href="#about" class="mobile-link text-gray-800 hover:text-teal-600">About</a>
+      <a href="#expertise" class="mobile-link text-gray-800 hover:text-teal-600">Expertise</a>
+      <a href="#portfolio" class="mobile-link text-gray-800 hover:text-teal-600">Portfolio</a>
+      <a href="#contact"
+        class="mobile-link px-8 py-3 rounded-full bg-teal-500 text-white shadow-lg mt-2 w-[80%] text-center">Contact</a>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section id="home" class="relative min-h-[100svh] flex items-center pt-24 overflow-hidden bg-gray-50">
+    <!-- Background Elements -->
+    <div class="absolute top-0 right-0 w-[60%] h-full bg-teal-500/10 rounded-l-[100px] z-0 hidden lg:block"></div>
+    <div
+      class="absolute -top-24 -right-24 w-96 h-96 bg-yellow-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50">
+    </div>
+    <div
+      class="absolute top-1/2 -left-24 w-72 h-72 bg-teal-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50">
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 items-center gap-16 relative z-10 py-12">
+      <div class="reveal order-2 lg:order-1 text-center lg:text-left mt-8 lg:mt-0">
+        <div
+          class="inline-block px-3 py-1.5 rounded-full bg-teal-100 text-teal-800 text-xs font-semibold tracking-wide mb-4">
+          ✨ Available for new projects
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-4 text-gray-900">
+          HI, I'M <br class="hidden sm:block">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-teal-400">AURORA</span>
+          <span class="relative">
+            VELENE
+            <svg class="absolute -bottom-2 lg:-bottom-4 left-0 w-full h-3 lg:h-4 text-yellow-400" viewBox="0 0 200 9"
+              fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2.00036 6.8407C53.7915 -0.6695 106.671 -0.0163345 198.5 7.42065" stroke="currentColor"
+                stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </h1>
+        <p class="text-base sm:text-lg text-gray-600 mb-8 max-w-lg mx-auto lg:mx-0 font-inter leading-relaxed">
+          UGC Creator & Digital Storyteller.<br>
+          I craft authentic, high-converting content that elevates your brand and connects emotionally with your
+          audience.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start">
+          <a href="#portfolio"
+            class="w-full sm:w-auto px-6 py-3 text-sm rounded-full bg-gray-900 text-white font-medium hover:bg-teal-600 transition-colors shadow-lg hover:shadow-glow text-center">See
+            My Work</a>
+          <a href="#contact"
+            class="w-full sm:w-auto px-6 py-3 text-sm rounded-full bg-white border border-gray-200 text-gray-900 font-medium hover:border-teal-500 hover:text-teal-600 transition-colors text-center">Contact
+            Me</a>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 order-1 lg:order-2 relative mx-auto w-[80%] max-w-[380px] lg:max-w-[420px]">
+        <!-- Decorative Frame -->
+        <div
+          class="absolute inset-0 bg-yellow-400 rounded-[2rem] transform translate-x-4 translate-y-4 lg:translate-x-6 lg:translate-y-6">
+        </div>
+        <!-- Image Container -->
+        <div class="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white">
+          <img src="image-1.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80'"
+            alt="Aurora Velene Portrait" class="w-full h-full object-cover object-center">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTENT MENU ================= -->
+  <section class="py-24 bg-white relative z-10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <h2 class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-8 text-center sm:text-left">What's Inside
+      </h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
+        <a href="#about"
+          class="premium-card group block p-6 lg:p-8 rounded-3xl bg-gray-50 border border-gray-100 text-center hover:bg-teal-50 hover:border-teal-100 flex flex-col items-center">
+          <div
+            class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 text-teal-500 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">About Me</h3>
+        </a>
+        <a href="#expertise"
+          class="premium-card group block p-6 lg:p-8 rounded-3xl bg-yellow-50 border border-yellow-100 text-center hover:bg-yellow-100 flex flex-col items-center">
+          <div
+            class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 text-yellow-500 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Expertise</h3>
+        </a>
+        <a href="#portfolio"
+          class="premium-card group block p-6 lg:p-8 rounded-3xl bg-teal-50 border border-teal-100 text-center hover:bg-teal-100 flex flex-col items-center">
+          <div
+            class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 text-teal-600 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Photography</h3>
+        </a>
+        <a href="#portfolio"
+          class="premium-card group block p-6 lg:p-8 rounded-3xl bg-gray-50 border border-gray-100 text-center hover:bg-teal-50 hover:border-teal-100 flex flex-col items-center">
+          <div
+            class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mb-4 text-teal-500 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-gray-900">Videography</h3>
+        </a>
+        <a href="#portfolio"
+          class="premium-card group block col-span-2 md:col-span-1 p-6 lg:p-8 rounded-3xl bg-gray-900 text-white border border-gray-800 text-center hover:bg-teal-600 hover:border-teal-600 transition-colors flex flex-col items-center justify-center min-h-[160px]">
+          <div
+            class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2h10a2 2 0 002 2z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="font-semibold">Full Portfolio</h3>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT & PERSONAL ================= -->
+  <section id="about" class="py-24 bg-gray-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-2 gap-16 items-center">
+
+      <div class="reveal relative order-2 lg:order-1">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="img-zoom rounded-[2rem] overflow-hidden shadow-soft h-[300px] mt-12">
+            <img src="image-3.jpg"
+              onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop'"
+              class="w-full h-full object-cover">
+          </div>
+          <div class="img-zoom rounded-[2rem] overflow-hidden shadow-soft h-[400px]">
+            <img src="image-4.jpg"
+              onerror="this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=800&auto=format&fit=crop'"
+              class="w-full h-full object-cover">
+          </div>
+        </div>
+        <div
+          class="absolute -z-10 -bottom-10 -left-10 w-64 h-64 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30">
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 order-1 lg:order-2">
+        <span class="text-teal-600 font-bold uppercase tracking-widest text-sm mb-4 block">About Me</span>
+        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">
+          Crafting <span class="text-teal-500 italic font-serif">visual stories</span> that drive results.
+        </h2>
+        <div class="w-20 h-1 bg-yellow-400 mb-8"></div>
+        <div class="space-y-6 text-lg text-gray-600 font-inter mb-10">
+          <p>
+            I'm a creative UGC creator focused on building impactful digital presence through high-quality visuals and
+            authentic storytelling.
+          </p>
+          <p>
+            I specialize in content that connects emotionally with audiences. My approach bridges the gap between
+            editorial aesthetics and raw social media engagement.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 pt-6 border-t border-gray-200">
+          <div>
+            <p class="text-3xl font-extrabold text-gray-900 mb-1">High</p>
+            <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Engagement</p>
+          </div>
+          <div>
+            <p class="text-3xl font-extrabold text-teal-600 mb-1">Premium</p>
+            <p class="text-sm font-medium text-gray-500 uppercase tracking-wide">Brand Quality</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERTISE ================= -->
+  <section id="expertise" class="py-24 bg-teal-900 relative">
+    <div
+      class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-teal-100 via-transparent to-transparent">
+    </div>
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 text-center">
+
+      <div class="reveal mb-16 max-w-2xl mx-auto text-white">
+        <span class="text-yellow-400 font-bold uppercase tracking-widest text-sm mb-4 block">Capabilities</span>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Expertise & Capabilities</h2>
+        <p class="text-teal-100 text-lg">Delivering an end-to-end creative service tailored to modern platforms.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div
+          class="reveal premium-card bg-white/5 border border-white/10 backdrop-blur-sm p-8 rounded-[2rem] text-left">
+          <div class="w-14 h-14 bg-teal-500 rounded-2xl flex items-center justify-center text-white mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Content Creation</h3>
+          <p class="text-teal-100 text-sm leading-relaxed">Concept-to-delivery UGC tailored for TikTok, Reels, and ads.
+          </p>
+        </div>
+
+        <div
+          class="reveal reveal-delay-1 premium-card bg-white/5 border border-white/10 backdrop-blur-sm p-8 rounded-[2rem] text-left">
+          <div class="w-14 h-14 bg-yellow-400 rounded-2xl flex items-center justify-center text-teal-900 mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Editing</h3>
+          <p class="text-teal-100 text-sm leading-relaxed">Dynamic, fast-paced editing with trending soundscapes and
+            effects.</p>
+        </div>
+
+        <div
+          class="reveal reveal-delay-2 premium-card bg-white/5 border border-white/10 backdrop-blur-sm p-8 rounded-[2rem] text-left">
+          <div class="w-14 h-14 bg-teal-500 rounded-2xl flex items-center justify-center text-white mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Branding</h3>
+          <p class="text-teal-100 text-sm leading-relaxed">Developing aesthetic guidelines and visual identity for
+            digital presence.</p>
+        </div>
+
+        <div
+          class="reveal reveal-delay-3 premium-card bg-white/5 border border-white/10 backdrop-blur-sm p-8 rounded-[2rem] text-left">
+          <div class="w-14 h-14 bg-teal-500 rounded-2xl flex items-center justify-center text-white mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">Marketing</h3>
+          <p class="text-teal-100 text-sm leading-relaxed">Direct response optimization and performance-centric
+            storytelling.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTFOLIO MULTIMEDIA ================= -->
+  <section id="portfolio" class="py-24 bg-white">
+    <!-- Photography -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 mb-32">
+      <div class="reveal flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div>
+          <span class="text-teal-600 font-bold uppercase tracking-widest text-sm mb-2 block">Visuals</span>
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Photography</h2>
+        </div>
+        <div class="flex gap-3 overflow-x-auto pb-2 md:pb-0 hide-scrollbar">
+          <span
+            class="px-5 py-2 border border-gray-200 rounded-full text-sm font-medium hover:border-teal-500 hover:text-teal-600 cursor-pointer transition whitespace-nowrap">Lifestyle</span>
+          <span
+            class="px-5 py-2 border border-gray-200 rounded-full text-sm font-medium hover:border-teal-500 hover:text-teal-600 cursor-pointer transition whitespace-nowrap">Fashion</span>
+          <span
+            class="px-5 py-2 border border-gray-200 rounded-full text-sm font-medium hover:border-teal-500 hover:text-teal-600 cursor-pointer transition whitespace-nowrap">Travel</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div
+          class="reveal img-zoom group relative rounded-[1.5rem] overflow-hidden aspect-[3/4] col-span-2 md:col-span-1 md:row-span-2">
+          <img src="p1.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?crop=entropy&fit=crop&w=600&q=80'"
+            class="w-full h-full object-cover">
+          <div
+            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <span class="text-white font-medium px-6 py-2 border border-white rounded-full backdrop-blur-sm">View</span>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-1 img-zoom group relative rounded-[1.5rem] overflow-hidden aspect-square">
+          <img src="p2.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&fit=crop&w=600&q=80'"
+            class="w-full h-full object-cover">
+        </div>
+        <div
+          class="reveal reveal-delay-2 img-zoom group relative rounded-[1.5rem] overflow-hidden aspect-[4/5] row-span-2">
+          <img src="p3.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1520420097861-e4041b3be313?crop=entropy&fit=crop&w=800&q=80'"
+            class="w-full h-full object-cover">
+        </div>
+        <div class="reveal img-zoom group relative rounded-[1.5rem] overflow-hidden aspect-[4/3] md:aspect-auto">
+          <img src="p4.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1522228115018-d838bcce5c3a?crop=entropy&fit=crop&w=600&q=80'"
+            class="w-full h-full object-cover">
+        </div>
+        <div
+          class="reveal reveal-delay-1 img-zoom group relative rounded-[1.5rem] overflow-hidden aspect-square col-span-2 md:col-span-1">
+          <img src="p5.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?crop=entropy&fit=crop&w=600&q=80'"
+            class="w-full h-full object-cover">
+        </div>
+        <div class="reveal reveal-delay-2 img-zoom group relative rounded-[1.5rem] overflow-hidden aspect-square">
+          <img src="p6.jpg"
+            onerror="this.src='https://images.unsplash.com/photo-1512413913426-ba075df9c0e0?crop=entropy&fit=crop&w=600&q=80'"
+            class="w-full h-full object-cover">
+        </div>
+      </div>
+    </div>
+
+    <!-- Videography -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 bg-gray-50 rounded-[3rem] py-16 px-6 md:p-16 mb-24">
+      <div class="reveal text-center mb-12">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Videography</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">High-converting video content tailored for modern social
+          feeds.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <div class="reveal group relative">
+          <div
+            class="relative w-full aspect-[9/16] max-h-[650px] mb-6 rounded-[2.5rem] overflow-hidden shadow-soft bg-black">
+            <video controls
+              poster="https://images.unsplash.com/photo-1611162617474-5b21e879e113?crop=entropy&fit=crop&w=600&q=80"
+              src="v1.mp4"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-1 group relative mt-0 md:mt-12">
+          <div
+            class="relative w-full aspect-[9/16] max-h-[650px] mb-6 rounded-[2.5rem] overflow-hidden shadow-soft bg-black">
+            <video controls
+              poster="https://images.unsplash.com/photo-1542291026-7eec264c27ff?crop=entropy&fit=crop&w=600&q=80"
+              src="v2.mp4"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Social Content -->
+    <div class="max-w-7xl mx-auto px-6 md:px-12 bg-teal-50 rounded-[3rem] py-16 md:py-24">
+      <div class="reveal text-center mb-12">
+        <span class="text-teal-600 font-bold uppercase tracking-widest text-sm mb-2 block">Social Content</span>
+        <h2 class="text-3xl font-bold text-gray-900">Platform Specialties</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Reels -->
+        <div
+          class="reveal premium-card bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 p-10 rounded-[2rem] text-center text-white shadow-soft">
+          <div class="text-3xl font-bold mb-4 font-inter">Reels</div>
+          <p class="text-white/90 text-sm">Aesthetic, seamless transitions, and trending audio curation.</p>
+        </div>
+        <!-- Stories -->
+        <div
+          class="reveal reveal-delay-1 premium-card bg-gradient-to-br from-yellow-400 to-orange-500 p-10 rounded-[2rem] text-center text-white shadow-soft">
+          <div class="text-3xl font-bold mb-4 font-inter">Stories</div>
+          <p class="text-white/90 text-sm">Raw, engaging behind-the-scenes and lifestyle updates.</p>
+        </div>
+        <!-- TikTok -->
+        <div
+          class="reveal reveal-delay-2 premium-card bg-black p-10 rounded-[2rem] text-center text-white shadow-soft relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 bg-[#00f2fe] rounded-full filter blur-[60px] opacity-30"></div>
+          <div class="absolute bottom-0 left-0 w-32 h-32 bg-[#fe0979] rounded-full filter blur-[60px] opacity-30"></div>
+          <div class="text-3xl font-bold mb-4 font-inter relative z-10 flex items-center justify-center gap-2">
+            TikTok
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+            </svg>
+          </div>
+          <p class="text-gray-300 text-sm relative z-10">Fast-paced, high-retention hooks and storytelling formats.</p>
+          <div class="mt-6 inline-block bg-white/10 rounded-full px-4 py-1.5 text-xs font-bold border border-white/20">
+            72K+ Avg Views</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" class="py-24 bg-gray-900 relative text-white">
+    <!-- Decor -->
+    <div
+      class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-4xl bg-teal-500/10 mix-blend-screen filter blur-[100px] rounded-full pointer-events-none">
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 md:px-12 grid md:grid-cols-5 gap-12 relative z-10">
+      <div class="reveal md:col-span-2">
+        <h2 class="text-5xl font-bold mb-6">Let's create together.</h2>
+        <p class="text-gray-400 mb-8 font-inter">
+          Ready to elevate your brand's digital presence? Drop a message below and let's discuss your next campaign.
+        </p>
+        <div class="space-y-6">
+          <div class="flex items-center gap-4 text-gray-300">
+            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-teal-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                </path>
+              </svg>
+            </div>
+            <span class="font-medium">contact@auroravelene.com</span>
+          </div>
+          <div class="flex items-center gap-4 text-gray-300">
+            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-yellow-400">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <span class="font-medium">Based in Creative City</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal md:col-span-3">
+        <form class="bg-white/5 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-[2rem] shadow-2xl">
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-400 mb-2 pl-1">Name</label>
+              <input type="text" placeholder="Your Name"
+                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-400 mb-2 pl-1">Email</label>
+              <input type="email" placeholder="hello@company.com"
+                class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors">
+            </div>
+          </div>
+          <div class="mb-8">
+            <label class="block text-sm font-medium text-gray-400 mb-2 pl-1">Message</label>
+            <textarea rows="4" placeholder="Tell me about your project..."
+              class="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-colors resize-none"></textarea>
+          </div>
+          <button type="button"
+            class="w-full bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold py-4 px-8 rounded-xl transition-all hover:shadow-glow transform hover:-translate-y-1">
+            Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-black pt-16 pb-8 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-full bg-yellow-400 inline-block"></span>
+        <span class="text-white font-bold text-xl tracking-tighter">Aurora.</span>
+      </div>
+
+      <div class="flex gap-6 mt-4 md:mt-0">
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">Instagram</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">TikTok</a>
+        <a href="#" class="text-gray-400 hover:text-white transition-colors">LinkedIn</a>
+      </div>
+    </div>
+    <div
+      class="max-w-7xl mx-auto px-6 md:px-12 mt-12 text-center md:text-left border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between text-sm text-gray-500">
+      <p>© 2026 Aurora Velene. All rights reserved.</p>
+      <p class="mt-2 md:mt-0">Premium UGC Portfolio</p>
+    </div>
+  </footer>
+
+  <!-- ================= JS ================= -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('py-3');
+        navbar.classList.remove('py-5');
+      } else {
+        navbar.classList.add('py-5');
+        navbar.classList.remove('py-3');
+      }
+    });
+
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const line1 = document.getElementById('line1');
+    const line2 = document.getElementById('line2');
+    const line3 = document.getElementById('line3');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+        mobileMenu.classList.add('translate-y-0');
+        document.body.classList.add('mobile-nav-open');
+
+        // Burger to X animation
+        line1.classList.add('rotate-45', 'translate-y-2');
+        line2.classList.add('opacity-0');
+        line3.classList.add('-rotate-45', '-translate-y-2');
+        menuBtn.classList.add('text-teal-600');
+      } else {
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
+        mobileMenu.classList.remove('translate-y-0');
+        document.body.classList.remove('mobile-nav-open');
+
+        // X to Burger animation
+        line1.classList.remove('rotate-45', 'translate-y-2');
+        line2.classList.remove('opacity-0');
+        line3.classList.remove('-rotate-45', '-translate-y-2');
+        menuBtn.classList.remove('text-teal-600');
+      }
+    }
+
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // Close menu when clicking a link
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMenuOpen) toggleMenu();
+      });
+    });
+
+    // Intersection Observer for Scroll Animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Initialize first section immediately if visible on load
+    setTimeout(() => {
+      document.querySelectorAll('#home .reveal').forEach(el => el.classList.add('active'));
+    }, 100);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+🌈 OVERALL STYLE
+
+Website ini punya gaya:
+
+Modern editorial + fashion portfolio
+Warna dominan:
+🟢 Teal (background utama)
+🟡 Kuning terang (accent)
+⚪ Putih (clean space)
+Vibe:
+👉 Bold, clean, aesthetic, Instagram-ready
+🧱 STRUKTUR SECTION (DARI GAMBAR 1–10)
+🔹 1. HERO SECTION
+Split layout (2 kolom)
+Kiri: teks besar:
+“AURORA VELENE”
+“UGC Portfolio”
+Kanan: foto model dengan background kuning
+Style: bold typography + strong color contrast
+🔹 2. CONTENTS (NAVIGATION SECTION)
+Berisi daftar isi:
+About Me
+Expertise
+Photography
+Videography
+Portfolio
+Layout grid sederhana
+Clean, minimal, editorial style
+🔹 3. ABOUT ME
+Kombinasi teks + foto
+Ada elemen:
+Content specialties
+Social proof (ikon kecil)
+Layout: modern card + grid
+🔹 4. PERSONAL INTRODUCTION
+Full visual section
+Fokus ke foto portrait besar
+Overlay text elegan
+Style: high-end fashion look
+🔹 5. EXPERTISE & CAPABILITIES
+Card-based layout
+Isi:
+Content Creation
+Technical Skills
+Aesthetic Strength
+Tools & Platforms
+Setiap card ada foto + label
+🔹 6. PHOTOGRAPHY
+Grid layout
+Ada beberapa kategori:
+Lifestyle
+Fashion
+Travel
+Thumbnail dengan warna cerah
+🔹 7–8. VIDEOGRAPHY
+Fokus ke video preview
+Ada:
+Thumbnail besar
+Beberapa clip kecil
+Layout campuran (grid + highlight)
+🔹 9. REELS & STORIES
+2 kolom:
+Reels
+Stories
+Format seperti social media preview
+Clean card layout
+🔹 10. TIKTOK CONTENT
+Highlight section
+Ada:
+Stats (misal: 72K views)
+Username
+Style: social proof / influencer vibe
+📱 RESPONSIVE BEHAVIOR (PENTING)
+Desktop: grid 2–4 kolom
+Tablet: 2 kolom
+Mobile:
+1 kolom
+Tidak boleh ada overflow kanan
+Contact form harus full terlihat
+Navbar jadi hamburger
+✨ DESIGN CHARACTER
+
+Ciri khas utama:
+
+Banyak rounded corner (xl / 2xl)
+Warna kontras tapi harmonis
+Layout clean tapi tidak kosong
+Fokus pada visual (foto) bukan teks panjang
+Feel seperti:
+👉 Portfolio influencer + creative agency
+🚀 HASIL AKHIR
+
+Dengan prompt ini + deskripsi ini, Antigravity bakal:
+
+Lebih paham desain kamu
+Nggak asal redesign
+Output jadi jauh lebih mahal look-nya
